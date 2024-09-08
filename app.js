@@ -57,9 +57,9 @@ app.post('/movies/', async (request, response) => {
     movie (director_id,movie_name,lead_actor)
   VALUES
   (
-    '${directorId}',
-    '${movieName}',
-    '${leadActor}'
+    ${directorId},
+    ${movieName},
+    ${leadActor}
     );`
   const dbRespons = await database.run(getSqliteQuery)
   response.send('Movie Successfully Added')
@@ -81,9 +81,9 @@ app.put('/movies/:movieId/', async (request, response) => {
   UPDATE
   movie
   SET
-  director_id = '${directorId}',
-  movie_name = '${movieName}',
-  lead_actor = '${leadActor}'
+  director_id = ${directorId},
+  movie_name = ${movieName},
+  lead_actor = ${leadActor}
   WHERE
   movie_id = ${movieId};`
   const movieData = await database.run(putSqlquery)
@@ -121,7 +121,7 @@ app.get('/directors/:directorId/movies/', async (request, response) => {
   director INNER JOIN movie
   ON director.director_id = movie.director_id
   WHERE
-  director.director_id = '${directorId})';`
+  director.director_id = ${directorId});`
   const movies = await database.all(getDirectorMovieQuery)
   response.send(movies)
 })
