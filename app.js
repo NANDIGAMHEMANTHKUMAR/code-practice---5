@@ -43,10 +43,13 @@ const convertDirectorDbObjectToResponseObject = dbObject => {
 }
 
 app.get('/movies/', async (request, response) => {
-  const getSqliteQuery = `
-  SELECT * FROM movie;`
-  movieData = await database.all(getSqliteQuery)
-  response.send(movieData)
+ const getAllMovies = `
+  SELECT 
+    *
+  FROM 
+    movie;`
+  const allMovie = await database.all(getAllMovies)
+  response.send(allMovie.map(eachMovie => ({movieName: eachMovie.movie_name})))
 })
 
 app.post('/movies/', async (request, response) => {
